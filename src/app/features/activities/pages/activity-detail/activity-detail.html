@@ -1,0 +1,305 @@
+@defer (when activity()) {
+  @if (activity(); as act) {
+    <div class="detail-layout">
+      <div class="main-column">
+        <a routerLink="/activities" class="back-link" aria-label="Back to activities">
+          <span class="mat-icon back-arrow" aria-hidden="true">arrow_back</span>
+          <span>Back to Activities</span>
+        </a>
+
+        <header class="detail-header">
+          <div class="badge-row">
+            <span class="badge badge-category">{{ act.category }}</span>
+            <span class="badge badge-visibility">{{ act.visibility }}</span>
+            @if (act.genderRestriction !== 'For everyone') {
+              <span class="badge badge-gender">{{ act.genderRestriction }}</span>
+            }
+          </div>
+          <h1 class="title">{{ act.title }}</h1>
+
+          <a class="organizer-inline" [routerLink]="['/users', act.participants[0]?.id]">
+            <app-avatar [url]="act.participants[0]?.avatarUrl" [size]="28"></app-avatar>
+            <span class="organizer-name">{{ act.participants[0]?.name || 'Meet5 Admin' }}</span>
+            <span class="organizer-role">· Host</span>
+          </a>
+        </header>
+
+        <hr class="section-divider" />
+
+        <div class="info-cards-row">
+          <div class="info-card">
+            <span class="mat-icon info-card-icon" aria-hidden="true">calendar_today</span>
+            <div class="info-card-content">
+              <strong>{{ act.date | date: 'EEE, MMM d, y' }}</strong>
+              <span class="info-card-sub">{{ act.date | date: 'HH:mm' }} Uhr</span>
+            </div>
+          </div>
+          <div class="info-card">
+            <span class="mat-icon info-card-icon" aria-hidden="true">location_on</span>
+            <div class="info-card-content">
+              <strong>{{ act.location.split(',')[0] }}</strong>
+              <span class="info-card-sub">{{
+                act.location.split(',').slice(1).join(',').trim()
+              }}</span>
+            </div>
+          </div>
+        </div>
+
+        <hr class="section-divider" />
+
+        <section class="content-section">
+          <h2 class="section-title">About this Activity</h2>
+          <p class="description-text">
+            Join us for a great time at &ldquo;{{ act.title }}&rdquo; &mdash; an event organised for
+            {{ act.genderRestriction.toLowerCase() }} at {{ act.location }}. This is a wonderful
+            opportunity to connect with new people, share common interests, and make unforgettable
+            memories. We welcome participants from all backgrounds who share a passion for
+            {{ act.category }}. Come along and bring good vibes!
+          </p>
+        </section>
+
+        <hr class="section-divider" />
+
+        <section class="content-section">
+          <h2 class="section-title">Participants</h2>
+
+          <div class="tabs" role="tablist">
+            <button
+              class="tab-btn"
+              [class.active]="store.activeTab() === 'invited'"
+              (click)="store.setTab('invited')"
+              role="tab"
+              [attr.aria-selected]="store.activeTab() === 'invited'"
+            >
+              Joined ({{ act.joinedCount }})
+            </button>
+            <button
+              class="tab-btn"
+              [class.active]="store.activeTab() === 'visitors'"
+              (click)="store.setTab('visitors')"
+              role="tab"
+              [attr.aria-selected]="store.activeTab() === 'visitors'"
+            >
+              Visitors
+            </button>
+            <button
+              class="tab-btn"
+              [class.active]="store.activeTab() === 'favorited'"
+              (click)="store.setTab('favorited')"
+              role="tab"
+              [attr.aria-selected]="store.activeTab() === 'favorited'"
+            >
+              Saved
+            </button>
+          </div>
+
+          @if (store.activeTab() === 'invited') {
+            <div class="participants-list" role="tabpanel">
+              @for (user of act.participants; track user.id) {
+                <a
+                  class="participant-item"
+                  [routerLink]="['/users', user.id]"
+                  [attr.aria-label]="'View ' + user.name + ' profile'"
+                >
+                  <app-avatar [url]="user.avatarUrl" [size]="56"></app-avatar>
+                  <span class="participant-name">{{ user.name }}</span>
+                </a>
+              }
+              @if (store.hasJoined()) {
+                <div class="participant-item you-slot">
+                  <div class="you-avatar" aria-label="You">You</div>
+                  <span class="participant-name">You</span>
+                </div>
+              }
+            </div>
+          } @else {
+            <div class="empty-tab-state" role="tabpanel">
+              <span class="mat-icon empty-icon" aria-hidden="true">search</span>
+              <p>No {{ store.activeTab() }} to show yet.</p>
+            </div>
+          }
+        </section>
+
+        <hr class="section-divider" />
+
+        <!-- Map Section -->
+        <section class="content-section">
+          <h2 class="section-title">Location</h2>
+          <p class="location-address">
+            <span class="mat-icon" style="font-size: 16px; vertical-align: middle"
+              >location_on</span
+            >
+            {{ act.location }}
+          </p>
+          @if (mapUrl()) {
+            <div class="map-bottom-wrapper">
+              <iframe
+                class="map-iframe"
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                [src]="mapUrl()!"
+                [title]="'Map: ' + act.location"
+              ></iframe>
+            </div>
+          }
+        </section>
+      </div>
+
+      <div class="side-column">
+        <div class="sticky-container">
+          <div class="join-card">
+            <div class="join-summary">
+              <div
+                class="join-spots-bar"
+                role="progressbar"
+                [attr.aria-valuenow]="act.joinedCount"
+                [attr.aria-valuemax]="act.maxParticipants"
+                aria-label="Spots filled"
+              >
+                <div
+                  class="join-spots-fill"
+                  [style.width.%]="(act.joinedCount / act.maxParticipants) * 100"
+                ></div>
+              </div>
+              <p class="join-spots-text">
+                <strong class="join-count">{{ act.joinedCount }}</strong> of
+                {{ act.maxParticipants }} spots filled
+              </p>
+            </div>
+
+            <div class="action-buttons">
+              <button
+                class="btn btn-save"
+                [class.saved]="store.hasSaved()"
+                (click)="store.toggleSave()"
+                [attr.aria-label]="store.hasSaved() ? 'Remove from saved' : 'Save activity'"
+              >
+                <span class="mat-icon">{{
+                  store.hasSaved() ? 'bookmark' : 'bookmark_border'
+                }}</span>
+              </button>
+              <button
+                class="btn btn-join"
+                [class.joined]="store.hasJoined()"
+                (click)="store.toggleJoin()"
+                [attr.aria-label]="store.hasJoined() ? 'Leave activity' : 'Join activity'"
+              >
+                @if (store.hasJoined()) {
+                  <span class="mat-icon" style="font-size: 18px">check</span> Joined
+                } @else {
+                  <span class="mat-icon" style="font-size: 18px">add</span> Join Activity
+                }
+              </button>
+            </div>
+            @if (store.hasJoined()) {
+              <p class="join-confirmation">
+                <span class="mat-icon" style="font-size: 16px; vertical-align: middle"
+                  >celebration</span
+                >
+                You've joined this activity! See you there.
+              </p>
+            }
+          </div>
+
+          @if (similarActivities().length > 0) {
+            <div class="similar-section">
+              <h3 class="similar-title">Similar Activities</h3>
+              <div class="similar-list">
+                @for (sim of similarActivities(); track sim.id) {
+                  <a class="similar-card" [routerLink]="['/activities', sim.id]">
+                    <div class="similar-card-body">
+                      <span class="similar-badge">{{ sim.category }}</span>
+                      <h4 class="similar-card-title">{{ sim.title }}</h4>
+                      <div class="similar-meta">
+                        <span class="mat-icon similar-meta-icon">calendar_today</span>
+                        <span>{{ sim.date | date: 'EEE, MMM d · HH:mm' }}</span>
+                      </div>
+                      <div class="similar-meta">
+                        <span class="mat-icon similar-meta-icon">location_on</span>
+                        <span>{{ sim.location.split(',')[0] }}</span>
+                      </div>
+                    </div>
+                    <div class="similar-card-footer">
+                      <div class="similar-spots-bar">
+                        <div
+                          class="similar-spots-fill"
+                          [style.width.%]="(sim.joinedCount / sim.maxParticipants) * 100"
+                        ></div>
+                      </div>
+                      <span class="similar-spots-text">
+                        <strong>{{ sim.joinedCount }}</strong
+                        >/{{ sim.maxParticipants }} joined
+                      </span>
+                    </div>
+                  </a>
+                }
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  }
+} @placeholder (minimum 400ms) {
+  <!-- Skeleton Loading Screen -->
+  <div class="detail-layout">
+    <div class="main-column">
+      <div class="skeleton skeleton-text" style="width: 150px; margin-bottom: 24px"></div>
+
+      <div style="display: flex; gap: 8px; margin-bottom: 16px">
+        <div class="skeleton" style="width: 80px; height: 26px; border-radius: 13px"></div>
+        <div class="skeleton" style="width: 100px; height: 26px; border-radius: 13px"></div>
+        <div class="skeleton" style="width: 120px; height: 26px; border-radius: 13px"></div>
+      </div>
+
+      <div class="skeleton skeleton-title" style="margin-bottom: 8px; width: 85%"></div>
+      <div class="skeleton skeleton-title" style="margin-bottom: 20px; width: 50%"></div>
+
+      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 32px">
+        <div class="skeleton skeleton-avatar" style="width: 28px; height: 28px"></div>
+        <div class="skeleton skeleton-text" style="width: 140px; margin: 0; height: 14px"></div>
+      </div>
+
+      <hr class="section-divider" style="opacity: 0.3" />
+
+      <div style="display: flex; gap: 24px; margin-bottom: 32px">
+        <div class="skeleton" style="width: 170px; height: 70px; border-radius: 12px"></div>
+        <div class="skeleton" style="width: 170px; height: 70px; border-radius: 12px"></div>
+      </div>
+
+      <hr class="section-divider" style="opacity: 0.3" />
+
+      <div class="skeleton skeleton-title" style="width: 200px; margin-bottom: 20px"></div>
+      <div class="skeleton skeleton-text" style="width: 100%"></div>
+      <div class="skeleton skeleton-text" style="width: 95%"></div>
+      <div class="skeleton skeleton-text" style="width: 100%"></div>
+      <div class="skeleton skeleton-text" style="width: 80%"></div>
+
+      <hr class="section-divider" style="opacity: 0.3" />
+
+      <div class="skeleton skeleton-title" style="width: 140px; margin-bottom: 20px"></div>
+      <div style="display: flex; gap: 8px; margin-bottom: 24px">
+        <div class="skeleton" style="width: 100px; height: 36px; border-radius: 18px"></div>
+        <div class="skeleton" style="width: 80px; height: 36px; border-radius: 18px"></div>
+        <div class="skeleton" style="width: 80px; height: 36px; border-radius: 18px"></div>
+      </div>
+      <div style="display: flex; gap: 16px; flex-wrap: wrap">
+        <div class="skeleton" style="width: 200px; height: 64px; border-radius: 12px"></div>
+        <div class="skeleton" style="width: 200px; height: 64px; border-radius: 12px"></div>
+        <div class="skeleton" style="width: 200px; height: 64px; border-radius: 12px"></div>
+        <div class="skeleton" style="width: 200px; height: 64px; border-radius: 12px"></div>
+      </div>
+    </div>
+
+    <div class="side-column">
+      <div
+        class="join-card skeleton"
+        style="height: 240px; border-radius: 16px; opacity: 0.8"
+      ></div>
+      <div
+        class="skeleton"
+        style="height: 350px; border-radius: 16px; margin-top: 24px; opacity: 0.8"
+      ></div>
+    </div>
+  </div>
+}

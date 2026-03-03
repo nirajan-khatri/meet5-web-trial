@@ -9,7 +9,7 @@ import { ActivityCard } from '../../components/activity-card/activity-card';
   templateUrl: './activities-page.html',
   styleUrl: './activities-page.scss',
 })
-export class ActivitiesPageComponent {
+export class ActivitiesPage {
   private readonly activityService = inject(ActivityService);
 
   readonly activities = this.activityService.activities;
