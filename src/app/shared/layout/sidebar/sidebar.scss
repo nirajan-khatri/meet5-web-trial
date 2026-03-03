@@ -15,7 +15,6 @@
   padding: 24px 16px;
 }
 
-/* ─── Logo ────────────────────────────────────────────────────────── */
 .logo-container {
   margin-bottom: 36px;
   padding: 0 12px;
@@ -44,7 +43,6 @@
   margin-top: 4px;
 }
 
-/* ─── Nav Menu ────────────────────────────────────────────────────── */
 .nav-menu {
   display: flex;
   flex-direction: column;
@@ -73,7 +71,6 @@
     }
   }
 
-  /* Left accent bar on active */
   &.active {
     background-color: rgba(232, 113, 74, 0.08);
     color: var(--color-primary);
@@ -107,7 +104,6 @@
   flex: 1;
 }
 
-/* ─── Chat Badge ──────────────────────────────────────────────────── */
 .nav-badge {
   min-width: 20px;
   height: 20px;
@@ -124,7 +120,6 @@
   box-shadow: 0 1px 3px rgba(239, 68, 68, 0.4);
 }
 
-/* ─── Premium Row (compact) ──────────────────────────────────────── */
 .sidebar-footer {
   margin-top: auto;
   padding-top: 24px;
@@ -186,7 +181,6 @@
   flex-shrink: 0;
 }
 
-/* ─── Collapsed sidebar (tablet) ─────────────────────────────────── */
 @media (max-width: 1024px) {
   :host {
     width: var(--sidebar-collapsed-width);
@@ -252,7 +246,6 @@
   }
 }
 
-/* ─── Hidden on mobile ───────────────────────────────────────────── */
 @media (max-width: 768px) {
   :host {
     display: none;

@@ -1,0 +1,50 @@
+<article class="activity-card" [routerLink]="['/activities', activity().id]">
+  <div class="badge-row">
+    <span class="badge badge-category">{{ activity().category }}</span>
+    @if (activity().genderRestriction !== 'For everyone') {
+      <span class="badge badge-gender">{{ activity().genderRestriction }}</span>
+    }
+  </div>
+
+  <h2 class="card-title">{{ activity().title }}</h2>
+
+  <div class="card-metadata">
+    <div class="metadata-row">
+      <span class="mat-icon icon" aria-hidden="true">location_on</span>
+      <span class="text">{{ activity().location }}</span>
+    </div>
+    <div class="metadata-row">
+      <span class="mat-icon icon" aria-hidden="true">calendar_today</span>
+      <span class="text">{{ activity().date | date: 'EEE, MMM d · HH:mm' }}</span>
+    </div>
+  </div>
+
+  <div class="participants-section">
+    <div class="avatar-stack" [attr.aria-label]="activity().joinedCount + ' participants joined'">
+      @for (user of visibleParticipants(); track user.id) {
+        <img class="stack-avatar" [src]="user.avatarUrl" [alt]="user.name" loading="lazy" />
+      }
+      @if (remainingSpots() > 0) {
+        <div class="stack-remaining" aria-hidden="true">+{{ remainingSpots() }}</div>
+      }
+    </div>
+
+    <div class="spots-info">
+      <span class="spots-count">
+        <strong>{{ activity().joinedCount }}</strong
+        >/{{ activity().maxParticipants }}
+      </span>
+      <span class="spots-text">joined</span>
+    </div>
+  </div>
+
+  <div
+    class="spots-bar"
+    role="progressbar"
+    [attr.aria-valuenow]="activity().joinedCount"
+    [attr.aria-valuemax]="activity().maxParticipants"
+    aria-label="Spots filled"
+  >
+    <div class="spots-fill" [style.width.%]="fillPercent()"></div>
+  </div>
+</article>

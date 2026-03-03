@@ -13,7 +13,6 @@
   flex-direction: column;
 }
 
-/* ─── Top Bar ────────────────────────────────────────────────── */
 .top-bar {
   display: flex;
   justify-content: space-between;
@@ -45,7 +44,6 @@
   color: var(--color-primary);
 }
 
-/* ─── Search Bar ─────────────────────────────────────────────── */
 .search-bar {
   display: flex;
   align-items: center;
@@ -89,7 +87,6 @@
   }
 }
 
-/* ─── Right Actions ──────────────────────────────────────────── */
 .actions {
   display: flex;
   gap: 12px;
@@ -162,7 +159,6 @@
   }
 }
 
-/* ─── Notification Badge ─────────────────────────────────────── */
 .notification-btn {
   position: relative;
 }
@@ -187,7 +183,6 @@
   pointer-events: none;
 }
 
-/* ─── User Avatar ────────────────────────────────────────────── */
 .avatar-btn {
   width: 36px;
   height: 36px;
@@ -215,7 +210,6 @@
   display: block;
 }
 
-/* ─── Content container ──────────────────────────────────────── */
 .content-container {
   flex: 1;
   max-width: 1200px;
@@ -224,7 +218,6 @@
   width: 100%;
 }
 
-/* ─── Responsive: Tablet ─────────────────────────────────────── */
 @media (max-width: 1024px) {
   .top-bar {
     padding: 12px 20px;
@@ -236,7 +229,6 @@
   }
 }
 
-/* ─── Responsive: iPad Portrait ──────────────────────────────── */
 @media (max-width: 768px) {
   .header-logo {
     display: block;
@@ -260,7 +252,6 @@
   }
 }
 
-/* ─── Responsive: Mobile ─────────────────────────────────────── */
 @media (max-width: 600px) {
   .top-bar {
     padding: 8px 12px;
@@ -295,15 +286,13 @@
     height: 32px;
   }
 
-  /* Add bottom padding so content isn't hidden behind the tab bar */
   .main-content {
     padding-bottom: 72px;
   }
 }
 
-/* ─── Bottom Tab Bar ─────────────────────────────────────────── */
 .bottom-tab-bar {
-  display: none; /* hidden on desktop/tablet */
+  display: none;
 }
 
 @media (max-width: 768px) {

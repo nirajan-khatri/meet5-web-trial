@@ -1,0 +1,6 @@
+@if (url()) {
+  <img [ngSrc]="url()!" [width]="size()" [height]="size()" alt="User avatar" class="avatar-img" />
+}
+@if (showBadge()) {
+  <div class="badge-icon" aria-hidden="true">✓</div>
+}

@@ -5,5 +5,14 @@ export const routes: Routes = [
   {
     path: '',
     component: MainLayout,
+    children: [
+      { path: '', redirectTo: 'activities', pathMatch: 'full' },
+      {
+        path: 'activities',
+        loadChildren: () =>
+          import('@features/activities/activities.routes').then((m) => m.ACTIVITIES_ROUTES),
+      },
+    ],
   },
+  { path: '**', redirectTo: 'activities' },
 ];

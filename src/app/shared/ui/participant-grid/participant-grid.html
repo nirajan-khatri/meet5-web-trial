@@ -1,0 +1,10 @@
+<div class="grid-container">
+  @for (participant of displayParticipants(); track participant.id) {
+    <app-avatar [url]="participant.avatarUrl" [showBadge]="true" class="grid-item"> </app-avatar>
+  }
+  @for (emptyId of emptySlots(); track emptyId) {
+    <div class="grid-item empty-slot">
+      <div class="plus-icon" aria-hidden="true">+</div>
+    </div>
+  }
+</div>
