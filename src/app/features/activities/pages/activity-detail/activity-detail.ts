@@ -6,7 +6,7 @@ import { DatePipe } from '@angular/common';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivityService } from '@core/services/activity';
 import { Avatar } from '@shared/ui/avatar/avatar';
-import { ActivityDetailStore } from '../../services/activity-detail.store';
+import { ActivityDetailStore } from '@features/activities/services/activity-detail.store';
 
 @Component({
   selector: 'app-activity-detail',

@@ -1,0 +1,183 @@
+@defer (when profile()) {
+  @if (profile(); as user) {
+    <div class="user-detail">
+      <div class="hero-gallery">
+        <img
+          class="hero-photo"
+          [src]="user.photos[activePhoto()]"
+          [alt]="user.name + ' photo ' + (activePhoto() + 1)"
+        />
+
+        <a routerLink="/activities" class="hero-back" aria-label="Go back">
+          <span class="mat-icon">arrow_back</span>
+        </a>
+
+        @if (user.photos.length > 1) {
+          <div class="photo-dots" role="tablist" aria-label="Photo gallery">
+            @for (photo of user.photos; track $index) {
+              <button
+                class="photo-dot"
+                [class.active]="activePhoto() === $index"
+                (click)="selectPhoto($index)"
+                [attr.aria-label]="'Photo ' + ($index + 1)"
+                role="tab"
+                [attr.aria-selected]="activePhoto() === $index"
+              ></button>
+            }
+          </div>
+
+          <button
+            class="gallery-arrow gallery-arrow--left"
+            (click)="prevPhoto()"
+            aria-label="Previous photo"
+          >
+            <span class="mat-icon">chevron_left</span>
+          </button>
+          <button
+            class="gallery-arrow gallery-arrow--right"
+            (click)="nextPhoto()"
+            aria-label="Next photo"
+          >
+            <span class="mat-icon">chevron_right</span>
+          </button>
+        }
+      </div>
+
+      <div class="content">
+        <div class="identity-section">
+          <div class="name-row">
+            <h1 class="user-name">{{ user.name }}, {{ user.age }}</h1>
+            <span
+              class="online-dot"
+              [class.online]="user.isOnline"
+              [attr.aria-label]="user.isOnline ? 'Online' : 'Offline'"
+            ></span>
+          </div>
+
+          <div class="badges-row">
+            @if (user.isCreator) {
+              <span class="badge badge-creator">
+                <span class="mat-icon" style="font-size: 14px">add</span> Creator
+              </span>
+            }
+            @if (user.isVerified) {
+              <span class="badge badge-verified">
+                <span class="mat-icon" style="font-size: 14px">verified</span> Verified
+              </span>
+            }
+            <span class="badge badge-online">
+              {{ user.isOnline ? 'Online now' : 'Last seen recently' }}
+            </span>
+          </div>
+        </div>
+
+        @if (user.bio) {
+          <p class="bio">{{ user.bio }}</p>
+        }
+
+        <div class="cta-row">
+          <button
+            class="btn btn-favorite"
+            [class.favorited]="isFavorited()"
+            (click)="toggleFavorite()"
+            [attr.aria-label]="isFavorited() ? 'Remove from favorites' : 'Add to favorites'"
+          >
+            <span class="mat-icon btn-icon">{{
+              isFavorited() ? 'bookmark' : 'bookmark_border'
+            }}</span>
+            {{ isFavorited() ? 'Saved' : 'Save' }}
+          </button>
+          <button class="btn btn-chat" aria-label="Start chat">
+            <span class="mat-icon btn-icon">chat_bubble</span>
+            Chat
+          </button>
+        </div>
+
+        <hr class="section-divider" />
+
+        <section class="details-section">
+          <h2 class="section-title">Details</h2>
+          <div class="details-grid">
+            <div class="detail-item">
+              <span class="mat-icon detail-icon" aria-hidden="true">location_on</span>
+              <div class="detail-content">
+                <span class="detail-label">Location</span>
+                <span class="detail-value">{{ user.location }}</span>
+              </div>
+            </div>
+            <div class="detail-item">
+              <span class="mat-icon detail-icon" aria-hidden="true">favorite_border</span>
+              <div class="detail-content">
+                <span class="detail-label">Relationship</span>
+                <span class="detail-value">{{ user.relationshipStatus || 'Not specified' }}</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <hr class="section-divider" />
+
+        @if (user.interests.length > 0) {
+          <section class="interests-section">
+            <h2 class="section-title">Interests</h2>
+            <div class="interests-grid" role="list" aria-label="Interests">
+              @for (interest of user.interests; track interest) {
+                <span class="interest-chip" role="listitem">{{ interest }}</span>
+              }
+            </div>
+          </section>
+        }
+      </div>
+    </div>
+  }
+} @placeholder (minimum 400ms) {
+  <div class="user-detail">
+    <div class="skeleton" style="height: 350px; border-radius: 0 0 24px 24px; width: 100%"></div>
+
+    <div class="content" style="padding-top: 32px">
+      <div
+        style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 24px;
+        "
+      >
+        <div class="skeleton skeleton-title" style="margin: 0; width: 280px"></div>
+      </div>
+
+      <div style="display: flex; gap: 8px; margin-bottom: 24px">
+        <div class="skeleton" style="width: 80px; height: 26px; border-radius: 13px"></div>
+        <div class="skeleton" style="width: 100px; height: 26px; border-radius: 13px"></div>
+        <div class="skeleton" style="width: 120px; height: 26px; border-radius: 13px"></div>
+      </div>
+
+      <div class="skeleton skeleton-text" style="width: 95%"></div>
+      <div class="skeleton skeleton-text" style="width: 85%"></div>
+      <div class="skeleton skeleton-text" style="width: 60%; margin-bottom: 32px"></div>
+
+      <div style="display: flex; gap: 16px; margin-bottom: 40px">
+        <div class="skeleton" style="flex: 1; height: 48px; border-radius: 24px"></div>
+        <div class="skeleton" style="flex: 1; height: 48px; border-radius: 24px"></div>
+      </div>
+
+      <hr class="section-divider" style="opacity: 0.3" />
+
+      <div class="skeleton skeleton-title" style="width: 150px; margin-bottom: 20px"></div>
+      <div
+        class="skeleton"
+        style="height: 80px; border-radius: 12px; margin-bottom: 40px; opacity: 0.7"
+      ></div>
+
+      <hr class="section-divider" style="opacity: 0.3" />
+
+      <div class="skeleton skeleton-title" style="width: 130px; margin-bottom: 20px"></div>
+      <div style="display: flex; gap: 10px; flex-wrap: wrap">
+        <div class="skeleton" style="width: 110px; height: 34px; border-radius: 17px"></div>
+        <div class="skeleton" style="width: 90px; height: 34px; border-radius: 17px"></div>
+        <div class="skeleton" style="width: 130px; height: 34px; border-radius: 17px"></div>
+        <div class="skeleton" style="width: 100px; height: 34px; border-radius: 17px"></div>
+      </div>
+    </div>
+  </div>
+}
