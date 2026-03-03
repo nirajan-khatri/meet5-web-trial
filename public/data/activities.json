@@ -1,0 +1,144 @@
+[
+  {
+    "id": "1",
+    "title": "The Best of Hans Zimmer in Concert",
+    "location": "Congress Centrum Würzburg, Würzburg",
+    "lat": 49.795,
+    "lng": 9.9307,
+    "date": "2026-03-03T20:00:00",
+    "maxParticipants": 12,
+    "joinedCount": 4,
+    "category": "Music",
+    "visibility": "Public",
+    "genderRestriction": "For everyone",
+    "participants": [
+      { "id": "1", "name": "Kat", "avatarUrl": "https://i.pravatar.cc/150?img=47" },
+      { "id": "2", "name": "Morgan", "avatarUrl": "https://i.pravatar.cc/150?img=12" },
+      { "id": "3", "name": "Alex", "avatarUrl": "https://i.pravatar.cc/150?img=33" },
+      { "id": "4", "name": "Sam", "avatarUrl": "https://i.pravatar.cc/150?img=68" }
+    ]
+  },
+  {
+    "id": "2",
+    "title": "Lauftreff für den Tierschutz 🌕🌱 Gute Nacht Lauf Gießen",
+    "location": "tegut... gute Lebensmittel, Gießen",
+    "lat": 50.5847,
+    "lng": 8.6762,
+    "date": "2026-03-03T20:30:00",
+    "maxParticipants": 12,
+    "joinedCount": 2,
+    "category": "Sports & Fitness",
+    "visibility": "Public",
+    "genderRestriction": "For everyone",
+    "participants": [
+      { "id": "5", "name": "Kaddy", "avatarUrl": "https://i.pravatar.cc/150?img=5" },
+      { "id": "6", "name": "Tom", "avatarUrl": "https://i.pravatar.cc/150?img=15" }
+    ]
+  },
+  {
+    "id": "3",
+    "title": "Badminton 🏸 Doppel",
+    "location": "Mittelpunkt-Sportcenter, Maintal",
+    "lat": 50.1483,
+    "lng": 8.8352,
+    "date": "2026-03-03T21:00:00",
+    "maxParticipants": 8,
+    "joinedCount": 2,
+    "category": "Sports & Fitness",
+    "visibility": "Public",
+    "genderRestriction": "For everyone",
+    "participants": [
+      { "id": "7", "name": "Lisa", "avatarUrl": "https://i.pravatar.cc/150?img=20" },
+      { "id": "8", "name": "Max", "avatarUrl": "https://i.pravatar.cc/150?img=53" }
+    ]
+  },
+  {
+    "id": "4",
+    "title": "Terrarium / Mini-Ökosystem bepflanzen",
+    "location": "Eco Glass Plants TERRARIUM, Frankfurt",
+    "lat": 50.1109,
+    "lng": 8.6821,
+    "date": "2026-03-04T09:00:00",
+    "maxParticipants": 6,
+    "joinedCount": 1,
+    "category": "Hobby & Crafts",
+    "visibility": "Public",
+    "genderRestriction": "For everyone",
+    "participants": [
+      { "id": "9", "name": "Julia", "avatarUrl": "https://i.pravatar.cc/150?img=44" }
+    ]
+  },
+  {
+    "id": "5",
+    "title": "Kinoabend 🍿🎬🥤🎞️ \"Marty Supreme\"",
+    "location": "Bali-Kinos, Kassel",
+    "lat": 51.3127,
+    "lng": 9.4797,
+    "date": "2026-03-04T17:00:00",
+    "maxParticipants": 10,
+    "joinedCount": 3,
+    "category": "Entertainment",
+    "visibility": "Public",
+    "genderRestriction": "For everyone",
+    "participants": [
+      { "id": "10", "name": "Anna", "avatarUrl": "https://i.pravatar.cc/150?img=29" },
+      { "id": "11", "name": "Peter", "avatarUrl": "https://i.pravatar.cc/150?img=57" },
+      { "id": "12", "name": "Sara", "avatarUrl": "https://i.pravatar.cc/150?img=35" }
+    ]
+  },
+  {
+    "id": "6",
+    "title": "Gemeinsam Sträckeln",
+    "location": "Im alten Posthof 7, Grünberg",
+    "lat": 50.5931,
+    "lng": 8.951,
+    "date": "2026-03-04T18:00:00",
+    "maxParticipants": 8,
+    "joinedCount": 3,
+    "category": "Hobby & Crafts",
+    "visibility": "Public",
+    "genderRestriction": "For everyone",
+    "participants": [
+      { "id": "13", "name": "Marie", "avatarUrl": "https://i.pravatar.cc/150?img=9" },
+      { "id": "14", "name": "Klaus", "avatarUrl": "https://i.pravatar.cc/150?img=60" },
+      { "id": "15", "name": "Hanna", "avatarUrl": "https://i.pravatar.cc/150?img=41" }
+    ]
+  },
+  {
+    "id": "7",
+    "title": "Weltfrauentag Frühstück im R-Café 💚",
+    "location": "R-Café Gießen, Gießen",
+    "lat": 50.583,
+    "lng": 8.678,
+    "date": "2026-03-08T09:00:00",
+    "maxParticipants": 10,
+    "joinedCount": 6,
+    "category": "Food & Drinks",
+    "visibility": "Public",
+    "genderRestriction": "Women only",
+    "participants": [
+      { "id": "16", "name": "Eva", "avatarUrl": "https://i.pravatar.cc/150?img=49" },
+      { "id": "17", "name": "Lena", "avatarUrl": "https://i.pravatar.cc/150?img=26" },
+      { "id": "18", "name": "Nina", "avatarUrl": "https://i.pravatar.cc/150?img=32" },
+      { "id": "19", "name": "Rosa", "avatarUrl": "https://i.pravatar.cc/150?img=38" },
+      { "id": "20", "name": "Tina", "avatarUrl": "https://i.pravatar.cc/150?img=21" },
+      { "id": "21", "name": "Petra", "avatarUrl": "https://i.pravatar.cc/150?img=43" }
+    ]
+  },
+  {
+    "id": "8",
+    "title": "Gemütliche Kaffeerunde ☕",
+    "location": "Wiener Altstadtcafe, Lichtenfels",
+    "lat": 50.1456,
+    "lng": 11.0614,
+    "date": "2026-03-08T15:00:00",
+    "maxParticipants": 8,
+    "joinedCount": 1,
+    "category": "Food & Drinks",
+    "visibility": "Public",
+    "genderRestriction": "For everyone",
+    "participants": [
+      { "id": "22", "name": "Monika", "avatarUrl": "https://i.pravatar.cc/150?img=48" }
+    ]
+  }
+]
