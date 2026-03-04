@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { Observable, tap, map, shareReplay } from 'rxjs';
-import { Activity } from '../models/activity.model';
+import { Activity } from '@core';
 
 interface ActivityJson extends Omit<Activity, 'date'> {
   date: string;

@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, inject, signal, computed } from '@a
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { UserService } from '@core/services/user';
+import { UserService } from '@core';
 
 @Component({
   selector: 'app-user-detail',

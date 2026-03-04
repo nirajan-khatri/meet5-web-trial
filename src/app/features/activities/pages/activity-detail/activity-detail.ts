@@ -4,9 +4,9 @@ import { map } from 'rxjs';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { DomSanitizer } from '@angular/platform-browser';
-import { ActivityService } from '@core/services/activity';
+import { ActivityService } from '@core';
 import { Avatar } from '@shared/ui/avatar/avatar';
-import { ActivityDetailStore } from '@features/activities/services/activity-detail.store';
+import { ActivityDetailStore } from '@features/activities';
 
 @Component({
   selector: 'app-activity-detail',

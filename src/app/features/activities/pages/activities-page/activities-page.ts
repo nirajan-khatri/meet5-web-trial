@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { ActivityService } from '@core/services/activity';
-import { ActivityCard } from '../../components/activity-card/activity-card';
+import { ActivityService } from '@core';
+import { ActivityCard } from '@features/activities/components/activity-card/activity-card';
 
 @Component({
   selector: 'app-activities-page',

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject, signal } from '@angular/core';
 import { Observable, map, tap, shareReplay } from 'rxjs';
-import { UserProfile } from '../models/user.model';
+import { UserProfile } from '@core';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {

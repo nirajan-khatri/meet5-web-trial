@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { Activity } from '@core/models/activity.model';
+import { Activity } from '@core';
 
 @Component({
   selector: 'app-activity-card',
