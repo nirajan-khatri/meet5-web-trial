@@ -1,12 +1,17 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { HttpClient } from '@angular/common/http';
+import { toSignal, rxResource } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { DomSanitizer } from '@angular/platform-browser';
-import { ActivityService } from '@core';
+import { Activity } from '@core';
 import { Avatar } from '@shared/ui/avatar/avatar';
 import { ActivityDetailStore } from '@features/activities';
+
+interface ActivityJson extends Omit<Activity, 'date'> {
+  date: string;
+}
 
 @Component({
   selector: 'app-activity-detail',
@@ -18,8 +23,8 @@ import { ActivityDetailStore } from '@features/activities';
 })
 export class ActivityDetail {
   private readonly route = inject(ActivatedRoute);
+  private readonly http = inject(HttpClient);
   private readonly sanitizer = inject(DomSanitizer);
-  private readonly activityService = inject(ActivityService);
 
   readonly store = inject(ActivityDetailStore);
 
@@ -27,10 +32,20 @@ export class ActivityDetail {
     this.route.paramMap.pipe(map((params) => params.get('id'))),
   );
 
+  private readonly activitiesResource = rxResource({
+    stream: () =>
+      this.http
+        .get<ActivityJson[]>('/data/activities.json')
+        .pipe(
+          map((data) => data.map((item): Activity => ({ ...item, date: new Date(item.date) }))),
+        ),
+  });
+
   readonly activity = computed(() => {
     const id = this.activityId();
-    if (!id) return undefined;
-    return this.activityService.activityById(id)();
+    const all = this.activitiesResource.value();
+    if (!id || !all) return undefined;
+    return all.find((a) => a.id === id);
   });
 
   readonly mapExpanded = signal(false);
@@ -50,9 +65,10 @@ export class ActivityDetail {
 
   readonly similarActivities = computed(() => {
     const act = this.activity();
-    if (!act) return [];
+    const all = this.activitiesResource.value();
+    if (!act || !all) return [];
 
-    const others = this.activityService.activities().filter((a) => a.id !== act.id);
+    const others = all.filter((a) => a.id !== act.id);
     const sameCategory = others.filter((a) => a.category === act.category);
 
     if (sameCategory.length >= 3) return sameCategory.slice(0, 3);

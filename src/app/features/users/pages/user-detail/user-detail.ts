@@ -1,29 +1,35 @@
 import { ChangeDetectionStrategy, Component, inject, signal, computed } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { Location } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { toSignal, rxResource } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
-import { ActivatedRoute, RouterLink } from '@angular/router';
-import { UserService } from '@core';
+import { ActivatedRoute } from '@angular/router';
+import { UserProfile } from '@core';
 
 @Component({
   selector: 'app-user-detail',
-  imports: [RouterLink],
+  imports: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './user-detail.html',
   styleUrl: './user-detail.scss',
 })
 export class UserDetail {
   private readonly route = inject(ActivatedRoute);
-  private readonly userService = inject(UserService);
+  private readonly http = inject(HttpClient);
+  private readonly location = inject(Location);
 
   private readonly userId = toSignal(this.route.paramMap.pipe(map((params) => params.get('id'))));
 
-  readonly profile = computed(() => {
-    const id = this.userId();
-    if (!id) return undefined;
-    return this.userService.getProfileById(id);
+  private readonly profilesResource = rxResource({
+    stream: () => this.http.get<UserProfile[]>('/data/users.json'),
   });
 
-  private readonly initData = this.userService.loadProfiles().subscribe();
+  readonly profile = computed(() => {
+    const id = this.userId();
+    const profiles = this.profilesResource.value();
+    if (!id || !profiles) return undefined;
+    return profiles.find((p) => p.id === id);
+  });
 
   readonly activePhoto = signal(0);
 
@@ -43,6 +49,10 @@ export class UserDetail {
     const photos = this.profile()?.photos ?? [];
     if (photos.length <= 1) return;
     this.activePhoto.update((i) => (i + 1) % photos.length);
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 
   toggleFavorite(): void {

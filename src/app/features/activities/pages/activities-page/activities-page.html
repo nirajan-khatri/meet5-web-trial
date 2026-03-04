@@ -1,7 +1,7 @@
 <div class="page-container">
-  @defer (when activities().length > 0) {
+  @defer (when activitiesResource.hasValue()) {
     <div class="activities-grid">
-      @for (activity of activities(); track activity.id; let i = $index) {
+      @for (activity of activitiesResource.value()!; track activity.id; let i = $index) {
         <app-activity-card [activity]="activity"></app-activity-card>
 
         <!-- Inject Premium Banner after 2nd item (index 1) -->

@@ -8,9 +8,9 @@
           [alt]="user.name + ' photo ' + (activePhoto() + 1)"
         />
 
-        <a routerLink="/activities" class="hero-back" aria-label="Go back">
+        <button class="hero-back" (click)="goBack()" aria-label="Go back">
           <span class="mat-icon">arrow_back</span>
-        </a>
+        </button>
 
         @if (user.photos.length > 1) {
           <div class="photo-dots" role="tablist" aria-label="Photo gallery">
