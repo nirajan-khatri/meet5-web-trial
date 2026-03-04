@@ -43,7 +43,7 @@
 .section-divider {
   border: none;
   border-top: 1px solid var(--color-border);
-  margin: 28px 0;
+  margin: 16px 0;
 }
 
 .detail-header {
@@ -596,7 +596,6 @@
 
   .side-column {
     width: 100%;
-    order: -1;
   }
 
   .sticky-container {
