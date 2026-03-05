@@ -1,5 +1,7 @@
 # Meet5 Web Trial
 
+🔗 **Live Demo:** [meet5-web-trial-vercel.vercel.app](https://meet5-web-trial-vercel.vercel.app/activities)
+
 ## Tech Stack
 
 - Angular
